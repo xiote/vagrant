@@ -2,8 +2,8 @@
 # vi: set ft=ruby :
 # XXX.XXX.XXX.1은 할당이 안됨
 hosts = {
-	"k8s-master1" => "192.168.77.91",
-	"k8s-worker1" => "192.168.77.101"
+	"k8s-master1": ["192.168.77.91", ["--cpus=2", "--memory=2g"]],
+	"k8s-worker1": ["192.168.77.101", ["--cpus=2", "--memory=2g"]]
 }
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -76,12 +76,13 @@ Vagrant.configure("2") do |config|
   config.ssh.forward_agent = true
   check_guest_additions = false
   
-  hosts.each do |name, ip|
+  hosts.each do |name, values|
     config.vm.define name do |machine|
       machine.vm.hostname = name
-      machine.vm.network :private_network, ip: ip
+      machine.vm.network :private_network, ip: values[0] 
       machine.vm.provider "docker" do |d|
         d.build_dir = "."
+        d.create_args = values[1]
       end
     end
   end
