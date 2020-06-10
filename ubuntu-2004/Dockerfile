@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-MAINTAINER Torben Knerr <mail@tknerr.de>
+MAINTAINER xiote <xiote@nate.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 

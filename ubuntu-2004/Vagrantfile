@@ -1,5 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+# XXX.XXX.XXX.1은 할당이 안됨
+hosts = {
+	"k8s-master1" => "192.168.77.91",
+	"k8s-worker1" => "192.168.77.101"
+}
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -56,10 +61,6 @@ Vagrant.configure("2") do |config|
   #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
   # end
-
-  config.vm.provider "docker" do |d|
-    d.build_dir = "."
-  end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -71,4 +72,18 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+  config.ssh.insert_key = false
+  config.ssh.forward_agent = true
+  check_guest_additions = false
+  
+  hosts.each do |name, ip|
+    config.vm.define name do |machine|
+      machine.vm.hostname = name
+      machine.vm.network :private_network, ip: ip
+      machine.vm.provider "docker" do |d|
+        d.build_dir = "."
+      end
+    end
+  end
+  
 end
