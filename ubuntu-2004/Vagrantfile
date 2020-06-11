@@ -3,8 +3,8 @@
 # XXX.XXX.XXX.1은 할당이 안됨
 # vagrant 머신ip: 192.168.94.239
 hosts = {
-	"k8s-master1": ["192.168.94.91", ["--cpus=2", "--memory=2g"]],
-	"k8s-worker1": ["192.168.94.101", ["--cpus=2", "--memory=2g"]]
+	"k8s-master1": ["192.168.94.91", ["--privileged", "-v", "/sys/fs/cgroup:/sys/fs/cgroup:ro", "--cpus=2", "--memory=2g"]],
+	"k8s-worker1": ["192.168.94.101", ["--privileged", "-v", "/sys/fs/cgroup:/sys/fs/cgroup:ro", "--cpus=2", "--memory=2g"]]
 }
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
