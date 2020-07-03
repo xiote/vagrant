@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Restore machine..." 
 vagrant snapshot restore macos1015
 echo "-------------------------" 
