@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Destory machine..." 
 vagrant destroy -f
 echo "-------------------------" 
